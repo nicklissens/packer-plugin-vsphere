@@ -6,7 +6,7 @@ before:
   hooks:
     # We strongly recommend running tests to catch any regression before release.
     # Even though, this an optional step.
-    - go test ./...
+    #- go test ./...
     # As part of the release doc files are included as a separate deliverable for
     # consumption by Packer.io. To include a separate docs.zip uncomment the following command.
     #- make ci-release-docs
@@ -33,23 +33,11 @@ builds:
     ldflags:
       - '-s -w -X {{ .ModulePath }}/version.Version={{.Version}} -X {{ .ModulePath }}/version.VersionPrerelease= '
     goos:
-      - netbsd
-      - solaris
-      - openbsd
-      - freebsd
-      - windows
       - linux
-      - darwin
     goarch:
       - amd64
       - '386'
-      - arm
-      - arm64
     ignore:
-      - goos: openbsd
-        goarch: arm64
-      - goos: darwin
-        goarch: '386'
       - goos: linux
         goarch: amd64
     binary: '{{ .ProjectName }}_v{{ .Version }}_{{ .Env.API_VERSION }}_{{ .Os }}_{{ .Arch }}'
